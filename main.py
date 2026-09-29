@@ -1,5 +1,5 @@
 """
-Main execution script for PRISMA-ScR scoping review data analysis.
+MLEpiVet-ScR - main execution script for PRISMA-ScR scoping review data analysis.
 Application of Machine Learning Methods in the Epidemiology of Notifiable Animal Diseases
 """
 
@@ -30,7 +30,7 @@ from src.disease_summary import build_disease_summary, save_disease_summary
 
 def main():
     print("="*80)
-    print("PRISMA-ScR Scoping Review - Data Analysis Pipeline")
+    print("MLEpiVet-ScR v1.0.0 - PRISMA-ScR Scoping Review Data Analysis Pipeline")
     print("="*80)
 
     # Paths

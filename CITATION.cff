@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
-title: "ML in Animal Disease Epidemiology - Scoping Review Analysis"
+title: "MLEpiVet-ScR: data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology"
 abstract: >-
   Analysis code for the PRISMA-ScR scoping review "Application of Machine
   Learning Methods in the Epidemiology of Notifiable Animal Diseases":

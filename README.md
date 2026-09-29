@@ -1,4 +1,6 @@
-# ML in Animal Disease Epidemiology - Scoping Review Analysis
+# MLEpiVet-ScR
+
+**Data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology**
 
 Analysis code for the PRISMA-ScR scoping review: "Application of Machine Learning Methods in the Epidemiology of Notifiable Animal Diseases"
 
@@ -15,7 +17,7 @@ This repository contains Python scripts for data cleaning, standardization, and 
 ```bash
 # Clone repository
 git clone <repository-url>
-cd prisma_ml_epidemiology_figures
+cd mlepivet-scr
 
 # Create virtual environment
 python3 -m venv venv
@@ -83,7 +85,7 @@ All figures: 300 DPI, Arial font, white background.
 
 If you use this code, please cite:
 
-Szymankiewicz, K. (2026). ML in Animal Disease Epidemiology - Scoping Review Analysis (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
+Szymankiewicz, K. (2026). MLEpiVet-ScR: data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
 
 ## License
 
