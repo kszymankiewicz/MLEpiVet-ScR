@@ -16,8 +16,8 @@ This repository contains Python scripts for data cleaning, standardization, and 
 
 ```bash
 # Clone repository
-git clone <repository-url>
-cd mlepivet-scr
+git clone https://github.com/kszymankiewicz/MLEpiVet-ScR.git
+cd MLEpiVet-ScR
 
 # Create virtual environment
 python3 -m venv venv
@@ -85,7 +85,9 @@ All figures: 300 DPI, Arial font, white background.
 
 If you use this code, please cite:
 
-Szymankiewicz, K. (2026). MLEpiVet-ScR: data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
+Szymankiewicz, K. (2026). MLEpiVet-ScR: data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology (Version 1.0.0) [Computer software]. https://github.com/kszymankiewicz/MLEpiVet-ScR
+
+Citation metadata are also provided in [CITATION.cff](CITATION.cff).
 
 ## License
 
