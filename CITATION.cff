@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "ML in Animal Disease Epidemiology - Scoping Review Analysis"
+abstract: >-
+  Analysis code for the PRISMA-ScR scoping review "Application of Machine
+  Learning Methods in the Epidemiology of Notifiable Animal Diseases":
+  data standardization, algorithm/disease/country classification, and
+  publication-ready figure generation covering eight WOAH-notifiable
+  diseases (ASF, FMD, HPAI, BTV, CSF, ND, LSD, WNV).
+authors:
+  - family-names: Szymankiewicz
+    given-names: Krzesimir
+    affiliation: "National Veterinary Research Institute (PIWet-PIB), Puławy, Poland"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+version: 1.0.0
+date-released: "2026-07-29"
+license: MIT
+repository-code: "<repository-url>"
+doi: 10.5281/zenodo.XXXXXXX

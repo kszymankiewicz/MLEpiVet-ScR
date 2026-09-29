@@ -36,10 +36,8 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Data (jeśli dużo)
-data/*.xlsx
-data/*.csv
-
-# Output (opcjonalnie - możesz chcieć przechowywać figury)
-# figures/
-# output/
+# Data and generated outputs (not distributed - only code + template)
+data/*
+!data/.gitkeep
+output/
+figures/
