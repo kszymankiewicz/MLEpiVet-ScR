@@ -1,5 +1,7 @@
 # MLEpiVet-ScR
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23040937.svg)](https://doi.org/10.5281/zenodo.23040937)
+
 **Data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology**
 
 Analysis code for the PRISMA-ScR scoping review: "Application of Machine Learning Methods in the Epidemiology of Notifiable Animal Diseases"
@@ -85,7 +87,9 @@ All figures: 300 DPI, Arial font, white background.
 
 If you use this code, please cite:
 
-Szymankiewicz, K. (2026). MLEpiVet-ScR: data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology (Version 1.0.0) [Computer software]. https://github.com/kszymankiewicz/MLEpiVet-ScR
+Szymankiewicz, K. (2026). MLEpiVet-ScR: data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23040938
+
+To cite all versions, use the concept DOI: https://doi.org/10.5281/zenodo.23040937
 
 Citation metadata are also provided in [CITATION.cff](CITATION.cff).
 
@@ -95,6 +99,6 @@ MIT - see [LICENSE](LICENSE)
 
 ## Author
 
-Krzesimir Szymankiewicz
+Krzesimir Szymankiewicz ([ORCID 0009-0008-9844-4019](https://orcid.org/0009-0008-9844-4019))
 Research Officer, Department of Virology and Viral Animal Diseases
 National Veterinary Research Institute (PIWet-PIB), Puławy, Poland

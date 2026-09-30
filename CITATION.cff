@@ -12,8 +12,9 @@ authors:
   - family-names: Szymankiewicz
     given-names: Krzesimir
     affiliation: "National Veterinary Research Institute (PIWet-PIB), Puławy, Poland"
-    # orcid: "https://orcid.org/0000-0000-0000-0000"
+    orcid: "https://orcid.org/0009-0008-9844-4019"
 version: 1.0.0
 date-released: "2026-09-29"
 license: MIT
+doi: 10.5281/zenodo.23040937
 repository-code: "https://github.com/kszymankiewicz/MLEpiVet-ScR"
