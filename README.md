@@ -8,9 +8,11 @@ Analysis code for the PRISMA-ScR scoping review: "Application of Machine Learnin
 
 ## Overview
 
-This repository contains Python scripts for data cleaning, standardization, and figure generation for a scoping review covering eight WOAH-notifiable diseases (ASF, FMD, HPAI, BTV, CSF, ND, LSD, WNV).
+This repository contains the Python pipeline used to standardise the
+extracted data and produce the figures and supplementary table of the review.
+It covers machine-learning studies on WOAH-listed viral diseases of animals.
 
-**Master bibliography:** 384 unique records (164 included after exclusions)
+**Included publications:** 109 (100 primary studies, 9 reviews)
 **Sources:** PubMed, Scopus, Web of Science (May-June 2026)
 **Target journal:** Transboundary and Emerging Diseases (Wiley)
 
@@ -33,51 +35,78 @@ pip install -r requirements.txt
 
 ## Usage
 
-Copy `template/data_template.xlsx` to `data/data_ml_publications.xlsx` and
-replace the example rows with your own extracted records (see
-`template/README.md` for the column schema), then run:
+Copy `template/data_template.xlsx` to `data/data_final.xlsx` and replace the
+example rows with your own extracted records (column schema and coding rules
+in [template/README.md](template/README.md)), then run:
 
 ```bash
 python main.py
+# or with explicit paths
+python main.py --data data/data_final.xlsx --figures figures --output output
 ```
 
-This will generate:
-- publication-ready figures (PNG + SVG) in `figures/`
-- Table S2 complete bibliography (Excel), a disease summary table
-  (CSV/JSON/Markdown/Excel) and a standardized-data preview for QA in `output/`
+Outputs:
+- `figures/` - Figures 1-6 and S1 (PNG at 300 dpi + editable SVG)
+- `output/Table_S1_included_studies.xlsx` - all included publications with
+  standardised fields
+- `output/mapping_review.xlsx` - every mapping decision (algorithm synonyms
+  and categories, diseases, metrics) for manual checking
 
-Figure 3b downloads the Natural Earth country boundaries at runtime, so an
+Figure 3 downloads the Natural Earth country boundaries at runtime, so an
 internet connection is required.
 
 The original extracted dataset and the generated figures/tables are not part
 of this repository; they are published with the article.
 
+## Method
+
+- **Counting unit:** the publication. A publication counts once for every
+  algorithm, category, disease or country it covers, so totals can exceed the
+  number of studies. Reviews are excluded from all figures.
+- **Algorithms:** F2 names are standardised with explicit synonym rules
+  (spelling variants, variants of one algorithm, deep-learning architectures
+  merged into families) and assigned to categories (F1), which are grouped
+  into five method families. All rules are in `src/mappings.py`.
+- **Diseases:** WOAH-listed viral diseases only; HPAI, LPAI and unspecified
+  avian influenza are merged as AI. Diseases are grouped by main host.
+- **Geography:** country of data origin, not author affiliation.
+  Continental studies count for every country of the continent; global
+  studies are reported in a note, not mapped.
+
 ## Figures
 
-1. **Temporal trend** (2016-2026) by Section
-2. **Algorithm vs Disease** heatmap
-3. **Top countries** (horizontal bar)
-   - **3b. Geographic distribution** (choropleth map)
-4. **Top 15 algorithms** (horizontal bar)
-5. **Publication distribution** by Stage (pie/donut)
+1. **Temporal trend** - publications per year, stacked by algorithm category
+2. **Machine-learning methods** - (A) categories by method family,
+   (B) algorithms used in ≥ 2 publications, (C) category × modelling target
+3. **Geography and diseases** - (A) map of data origin, (B) publications per
+   disease by host group
+4. **Algorithm category × disease** heatmap
+5. **Disease × stage and theme** bubble matrix (empty cells = research gaps)
+6. **Reported model performance** - AUC and accuracy ranges; validation
+   scheme and reporting checklist when the optional columns are present
+- **S1.** Publications per country
 
-All figures: 300 DPI, Arial font, white background.
+All figures use one fixed colour per algorithm category and per host group.
 
 ## Project Structure
 
 ```
-├── main.py                          # Pipeline entry point
+├── main.py                     # Pipeline entry point
 ├── src/
-│   ├── data_cleaning.py             # Loading data, removing excluded records
-│   ├── standardization.py           # Disease/algorithm/country/stage standardization
-│   ├── standardization_mappings.py  # Mapping rules to standard categories
-│   ├── figure_generator.py          # Figures 1-5
-│   ├── table_generator.py           # Table S2, standardized-data preview
-│   └── disease_summary.py           # Per-disease summary table
+│   ├── data_loading.py         # Loading, cleaning, list parsing, QA report
+│   ├── mappings.py             # All standardisation dictionaries
+│   ├── plot_style.py           # Shared style, colours and ordering
+│   ├── fig_trend.py            # Figure 1
+│   ├── fig_algorithms.py       # Figure 2
+│   ├── fig_geography.py        # Figure 3 and S1
+│   ├── fig_diseases.py         # Figure 4
+│   ├── fig_disease_context.py  # Figure 5
+│   ├── fig_performance.py      # Figure 6
+│   └── tables.py               # Table S1 and mapping QA workbook
 ├── template/
-│   ├── data_template.xlsx           # Example input with the expected columns
-│   └── README.md                    # Column schema
-├── data/                            # Place input data here (not tracked)
+│   ├── data_template.xlsx      # Example input with the expected columns
+│   └── README.md               # Column schema and coding rules
+├── data/                       # Place input data here (not tracked)
 ├── requirements.txt
 ├── CITATION.cff
 └── LICENSE
@@ -87,9 +116,11 @@ All figures: 300 DPI, Arial font, white background.
 
 If you use this code, please cite:
 
-Szymankiewicz, K. (2026). MLEpiVet-ScR: data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23040938
+Szymankiewicz, K. (2026). MLEpiVet-ScR: data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology (Version 2.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23040937
 
-To cite all versions, use the concept DOI: https://doi.org/10.5281/zenodo.23040937
+The DOI above (concept DOI) always resolves to the latest version; the DOI of
+each specific version is listed on the Zenodo record. Version 1.0.0:
+https://doi.org/10.5281/zenodo.23040938
 
 Citation metadata are also provided in [CITATION.cff](CITATION.cff).
 

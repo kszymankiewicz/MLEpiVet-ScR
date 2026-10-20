@@ -6,15 +6,15 @@ abstract: >-
   Analysis code for the PRISMA-ScR scoping review "Application of Machine
   Learning Methods in the Epidemiology of Notifiable Animal Diseases":
   data standardization, algorithm/disease/country classification, and
-  publication-ready figure generation covering eight WOAH-notifiable
-  diseases (ASF, FMD, HPAI, BTV, CSF, ND, LSD, WNV).
+  publication-ready figure generation for machine-learning studies on
+  WOAH-listed viral diseases of animals.
 authors:
   - family-names: Szymankiewicz
     given-names: Krzesimir
     affiliation: "National Veterinary Research Institute (PIWet-PIB), Puławy, Poland"
     orcid: "https://orcid.org/0009-0008-9844-4019"
-version: 1.0.0
-date-released: "2026-09-29"
+version: 2.0.0
+date-released: "2026-10-20"
 license: MIT
 doi: 10.5281/zenodo.23040937
 repository-code: "https://github.com/kszymankiewicz/MLEpiVet-ScR"
