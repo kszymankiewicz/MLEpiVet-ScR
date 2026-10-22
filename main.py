@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
 
 from src.data_loading import load_data, print_qa_summary, qa_report
 from src.fig_algorithms import figure_2_methods
+from src.fig_cooccurrence import figure_s2_cooccurrence
 from src.fig_disease_context import figure_5_disease_context
 from src.fig_diseases import figure_4_disease_heatmap
 from src.fig_geography import figure_3_geography
@@ -59,7 +60,7 @@ def main():
     print('\n[4/4] Figures...')
     for make_figure in (figure_1_temporal_trend, figure_2_methods, figure_3_geography,
                         figure_4_disease_heatmap, figure_5_disease_context,
-                        figure_6_performance):
+                        figure_6_performance, figure_s2_cooccurrence):
         make_figure(df, args.figures)
 
     print('\n' + '=' * 80)

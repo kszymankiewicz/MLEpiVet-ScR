@@ -46,7 +46,7 @@ python main.py --data data/data_final.xlsx --figures figures --output output
 ```
 
 Outputs:
-- `figures/` - Figures 1-6 and S1 (PNG at 300 dpi + editable SVG)
+- `figures/` - Figures 1-6, S1 and S2 (PNG at 300 dpi + editable SVG)
 - `output/Table_S1_included_studies.xlsx` - all included publications with
   standardised fields
 - `output/mapping_review.xlsx` - every mapping decision (algorithm synonyms
@@ -85,6 +85,7 @@ of this repository; they are published with the article.
 6. **Reported model performance** - AUC and accuracy ranges; validation
    scheme and reporting checklist when the optional columns are present
 - **S1.** Publications per country
+- **S2.** Co-occurrence of algorithm categories
 
 All figures use one fixed colour per algorithm category and per host group.
 
@@ -102,6 +103,7 @@ All figures use one fixed colour per algorithm category and per host group.
 │   ├── fig_diseases.py         # Figure 4
 │   ├── fig_disease_context.py  # Figure 5
 │   ├── fig_performance.py      # Figure 6
+│   ├── fig_cooccurrence.py     # Figure S2
 │   └── tables.py               # Table S1 and mapping QA workbook
 ├── template/
 │   ├── data_template.xlsx      # Example input with the expected columns
