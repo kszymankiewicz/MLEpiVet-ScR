@@ -234,6 +234,7 @@ DISEASE_MAP = {
     # Avian influenza: HPAI, LPAI and unspecified AI merged
     'HPAI': 'AI',
     'LPAI': 'AI',
+    'AI': 'AI',
     'Avian Influenza': 'AI',
     'Low Pathogenic Avian Influenza (H9N2)': 'AI',
     'Low-pathogenic Avian Influenza': 'AI',
@@ -363,4 +364,5 @@ METRIC_SYNONYMS = {
     'AUROC': 'AUC',
     'AUC (calibrated, AUCc)': 'AUC',
     'R2': 'R²',
+    'AUPR': 'AUPRC',
 }

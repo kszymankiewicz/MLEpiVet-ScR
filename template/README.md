@@ -39,7 +39,7 @@ and any value the dictionaries do not recognise.
 ## Optional reporting-quality columns (Figure 6)
 
 If present, Figure 6 colours studies by validation scheme and adds a
-reporting checklist panel. Code every non-review publication; leave the
+reporting checklist panel (percentages of applicable publications). Code every non-review publication; leave the
 cells empty for reviews.
 
 ### `Validation` - the most stringent validation of the final model
@@ -55,9 +55,20 @@ Random split/CV > None reported**.
 | `Random split/CV` | Test units are drawn at random from the same data pool: train/test split, k-fold or leave-one-out CV, bootstrap, out-of-bag error |
 | `None reported` | Performance only on training data, validation not described, or unsupervised analysis without a validation step |
 
+### `Spatial_blocked`, `Temporal_holdout` - `yes`, `no` or `NA`
+
+Record each design separately, because a study can use both while
+`Validation` keeps only the most stringent one.
+
+| Column | `yes` when | `NA` when |
+|---|---|---|
+| `Spatial_blocked` | Any spatially separated validation is used (spatial block or buffered CV, leave-region-out, held-out areas) | No validation, or data have no spatial dimension |
+| `Temporal_holdout` | Any later period is held out for testing (forecast hold-out, rolling origin) | No validation, or data have no time dimension |
+
 ### Reporting items - `yes`, `no` or `NA`
 
-`NA` (not applicable) is excluded from the percentage in Figure 6C.
+`NA` (not applicable) or an empty cell is excluded from the percentage in
+Figure 6C.
 
 | Column | `yes` when | `NA` when |
 |---|---|---|

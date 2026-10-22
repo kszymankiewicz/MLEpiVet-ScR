@@ -25,7 +25,8 @@ REQUIRED_COLUMNS = [
 
 # Optional reporting-quality columns used by Figure 6 when present.
 OPTIONAL_COLUMNS = [
-    'Validation', 'Reports_AUPRC', 'Reports_SensSpec', 'Reports_CI', 'Reports_Calibration',
+    'Validation', 'Spatial_blocked', 'Temporal_holdout',
+    'Reports_AUPRC', 'Reports_SensSpec', 'Reports_CI', 'Reports_Calibration',
 ]
 
 REVIEW_STAGE = 'Methodology/Review'

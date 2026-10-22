@@ -12,6 +12,8 @@ are not comparable across studies. Review articles are excluded.
 
 Optional columns (coding rules in template/README.md):
   Validation           Random split/CV | Spatial | Temporal | External | None reported
+  Spatial_blocked      yes | no | NA
+  Temporal_holdout     yes | no | NA
   Reports_AUPRC        yes | no | NA
   Reports_SensSpec     yes | no | NA
   Reports_CI           yes | no | NA
@@ -50,6 +52,11 @@ REPORTING_ITEMS = {
     'Reports_Calibration': 'Calibration',
 }
 
+VALIDATION_DESIGNS = {
+    'Spatial_blocked': 'Spatial blocking',
+    'Temporal_holdout': 'Temporal hold-out',
+}
+
 # Conventional AUC interpretation thresholds (Hosmer & Lemeshow).
 AUC_REFERENCES = [(0.7, 'acceptable'), (0.8, 'excellent'), (0.9, 'outstanding')]
 
@@ -85,7 +92,7 @@ def _range_panel(ax, data: pd.DataFrame, xlabel: str, color_of, references=()) -
 
 
 def _reporting_panel(ax, data: pd.DataFrame) -> None:
-    """Share of publications (with a performance metric) reporting each item."""
+    """Share of applicable publications (with a performance metric) per item."""
     items = []
     for col, label in REPORTING_ITEMS.items():
         if col in data.columns:
@@ -93,18 +100,27 @@ def _reporting_panel(ax, data: pd.DataFrame) -> None:
             coded = data[col].astype(str).str.lower()
             applicable = coded.isin(['yes', 'no'])
             if applicable.any():
-                items.append((label, coded[applicable].eq('yes').mean()))
-    validation = data['Validation'].dropna().value_counts(normalize=True)
-    items += [(f'Validation: {v}', validation.get(v, 0.0))
-              for v in VALIDATION_COLORS if v != 'Random split/CV']
+                items.append((label, coded[applicable].eq('yes').sum(), applicable.sum()))
+    # Spatial/temporal designs from their own yes/no columns when available
+    # (a study can use both; 'Validation' keeps only the most stringent).
+    for col, label in VALIDATION_DESIGNS.items():
+        if col in data.columns:
+            coded = data[col].astype(str).str.lower()
+            applicable = coded.isin(['yes', 'no'])
+            if applicable.any():
+                items.append((label, coded[applicable].eq('yes').sum(), applicable.sum()))
+    validation = data['Validation'].dropna()
+    shown = {'Spatial', 'Temporal'} if any(c in data.columns for c in VALIDATION_DESIGNS) else set()
+    items += [(f'Validation: {v}', int((validation == v).sum()), len(validation))
+              for v in VALIDATION_COLORS if v != 'Random split/CV' and v not in shown]
     y = np.arange(len(items))
-    ax.barh(y, [share * 100 for _, share in items], color='#A8D8EA', edgecolor=EDGE_COLOR,
+    ax.barh(y, [k / n * 100 for _, k, n in items], color='#A8D8EA', edgecolor=EDGE_COLOR,
             linewidth=0.5, height=0.65)
-    for yi, (_, share) in zip(y, items):
-        ax.text(share * 100 + 1.5, yi, f'{share:.0%}', va='center', fontsize=6.5,
+    for yi, (_, k, n) in zip(y, items):
+        ax.text(k / n * 100 + 1.5, yi, f'{k / n:.0%} ({k}/{n})', va='center', fontsize=6.5,
                 color=TEXT_COLOR)
     ax.set_yticks(y)
-    ax.set_yticklabels([label for label, _ in items], fontsize=6.5)
+    ax.set_yticklabels([label for label, _, _ in items], fontsize=6.5)
     ax.invert_yaxis()
     ax.set_xlim(0, 100)
     ax.set_xlabel('% of publications', fontweight='bold')
@@ -147,7 +163,7 @@ def figure_6_performance(df: pd.DataFrame, output_dir: Path) -> None:
     if has_validation:
         ax_c = fig.add_subplot(bottom[1])
         _reporting_panel(ax_c, data)
-        panel_label(ax_c, 'C', x=-0.62, y=1.12)
+        panel_label(ax_c, 'C', x=-0.02, y=1.1)
 
     shown = [v for v in palette if v in set(auc[key]) | set(acc[key])]
     handles = [Line2D([], [], color=palette[v] if palette[v] != '#FFFFFF' else '#DDDDDD', lw=2.2,
