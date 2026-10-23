@@ -168,6 +168,7 @@ def panel_c_heatmap(ax, df: pd.DataFrame, order, cbar_ax, blocks=HEATMAP_BLOCKS)
                     ha='center', va='center', fontsize=8, fontweight='bold')
 
     cb = ax.figure.colorbar(im, cax=cbar_ax, orientation='horizontal')
+    cb.set_ticks(np.arange(0, vmax + 1, 5))
     cb.set_label('Number of publications', fontsize=7)
     cb.ax.tick_params(labelsize=6.5)
     cb.outline.set_visible(False)
@@ -186,8 +187,9 @@ def figure_2_methods(df: pd.DataFrame, output_dir: Path, blocks=HEATMAP_BLOCKS,
     ax_b = fig.add_subplot(gs[1, 0])
     sub = gs[1, 1].subgridspec(3, 1, height_ratios=[0.30, 0.38, 0.32], hspace=0.05)
     ax_c = fig.add_subplot(sub[1, 0])
-    cb_gs = sub[2, 0].subgridspec(3, 3, width_ratios=[0.15, 0.7, 0.15], height_ratios=[0.3, 0.12, 0.58])
-    ax_cb = fig.add_subplot(cb_gs[1, 1])
+    # Colour bar spans the full width of the heatmap.
+    cb_gs = sub[2, 0].subgridspec(3, 1, height_ratios=[0.1, 0.1, 0.8])
+    ax_cb = fig.add_subplot(cb_gs[1, 0])
 
     panel_a_categories(ax_a, order)
     panel_b_algorithms(ax_b, data, order)
