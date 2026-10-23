@@ -91,3 +91,29 @@ def disease_groups(counts: pd.Series) -> list:
             groups.append((host, present))
     groups.sort(key=lambda g: -sum(counts[d] for d in g[1]))
     return groups
+
+
+def fit_text(ax, x: float, y: float, width: float, height: float, text: str,
+             max_size: float = 6.5, min_size: float = 4.5, **kwargs):
+    """
+    Draw text centred at (x, y) so that it fits a width x height box in data
+    units: try the text on one line, then broken at ' / ', then one word per
+    line, shrinking the font in 0.25-pt steps until it fits (never below
+    min_size). Returns the Text artist.
+    """
+    words = text.replace(' / ', '/ ').split(' ')
+    candidates = [text, text.replace(' / ', '/\n'), '\n'.join(words)]
+    renderer = ax.figure.canvas.get_renderer()
+    to_data = ax.transData.inverted()
+    kwargs = {'ha': 'center', 'va': 'center', 'linespacing': 1.0, **kwargs}
+    size = max_size
+    while True:
+        for candidate in candidates:
+            artist = ax.text(x, y, candidate, fontsize=size, **kwargs)
+            (x0, y0), (x1, y1) = to_data.transform(artist.get_window_extent(renderer))
+            if abs(x1 - x0) <= width and abs(y1 - y0) <= height:
+                return artist
+            artist.remove()
+        if size <= min_size:
+            return ax.text(x, y, candidates[-1], fontsize=min_size, **kwargs)
+        size = max(min_size, size - 0.25)

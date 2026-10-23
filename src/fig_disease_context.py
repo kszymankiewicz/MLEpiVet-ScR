@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 
 from src.plot_style import (
-    EDGE_COLOR, HOST_COLORS, TEXT_COLOR, apply_style, disease_groups, save_figure,
+    EDGE_COLOR, HOST_COLORS, TEXT_COLOR, apply_style, disease_groups, fit_text, save_figure,
 )
 
 BUBBLE_SCALE = 22  # marker area (pt^2) per publication
@@ -79,11 +79,10 @@ def figure_5_disease_context(df: pd.DataFrame, output_dir: Path) -> None:
     start = 0
     for i, (host, ds) in enumerate(groups):
         end = start + len(ds) - 1
-        ax.add_patch(plt.Rectangle((start - 0.45, -1.45), end - start + 0.9, 0.7,
+        ax.add_patch(plt.Rectangle((start - 0.45, -1.5), end - start + 0.9, 0.8,
                                    color=HOST_COLORS[host], clip_on=False, zorder=1))
-        label = host.replace(' / ', '/\n') if len(ds) <= 2 else host
-        ax.text((start + end) / 2, -1.1, label, ha='center', va='center', fontsize=6.5,
-                fontweight='bold', color=TEXT_COLOR, linespacing=1.0)
+        fit_text(ax, (start + end) / 2, -1.1, end - start + 0.8, 0.72, host,
+                 fontweight='bold', color=TEXT_COLOR)
         if i:
             ax.axvline(start - 0.5, color='#DDDDDD', lw=0.6, zorder=0)
         start = end + 1

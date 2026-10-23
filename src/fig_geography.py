@@ -21,7 +21,7 @@ from matplotlib.patches import Patch
 
 from src.mappings import COUNTRY_TO_NATURAL_EARTH, REGION_CONTINENTS
 from src.plot_style import (
-    EDGE_COLOR, HOST_COLORS, TEXT_COLOR, apply_style, disease_groups, panel_label,
+    EDGE_COLOR, HOST_COLORS, TEXT_COLOR, apply_style, disease_groups, fit_text, panel_label,
     save_figure,
 )
 
@@ -248,7 +248,7 @@ def _draw_map(ax, df: pd.DataFrame, world: gpd.GeoDataFrame) -> None:
 
 def _draw_disease_bars(ax, df: pd.DataFrame) -> None:
     counts = df['disease_list'].explode().value_counts()
-    x, ticks, labels = 0.0, [], []
+    x, ticks, labels, group_labels = 0.0, [], [], []
     for host, diseases in disease_groups(counts):
         start = x
         for d in diseases:
@@ -259,8 +259,7 @@ def _draw_disease_bars(ax, df: pd.DataFrame) -> None:
             ticks.append(x)
             labels.append(d)
             x += 1
-        ax.text((start + x - 1) / 2, -7.5, host.replace(' / ', '/\n') if len(diseases) <= 2 else host,
-                ha='center', va='top', fontsize=6.8, fontweight='bold', linespacing=1.0)
+        group_labels.append(((start + x - 1) / 2, x - start + 0.2, host))
         ax.plot([start - 0.35, x - 0.65], [-6.6, -6.6], color='#888888', lw=0.8, clip_on=False)
         x += 0.6
     ax.set_xticks(ticks)
@@ -271,6 +270,10 @@ def _draw_disease_bars(ax, df: pd.DataFrame) -> None:
     ax.set_ylabel('Number of publications', fontweight='bold')
     ax.grid(axis='y', color='#EEEEEE', lw=0.5)
     ax.set_axisbelow(True)
+    # Drawn after the axis limits are fixed so fit_text measures correctly.
+    for cx, width, host in group_labels:
+        fit_text(ax, cx, -11.0, width, 7.0, host, max_size=6.8, fontweight='bold',
+                 clip_on=False)
 
 
 def figure_3_geography_diseases(df: pd.DataFrame, world: gpd.GeoDataFrame, output_dir: Path) -> None:

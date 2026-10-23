@@ -16,7 +16,7 @@ import pandas as pd
 from src.fig_algorithms import HEATMAP_CMAP
 from src.plot_style import (
     HOST_COLORS, TEXT_COLOR, apply_style, category_color, disease_groups,
-    family_category_order, save_figure,
+    family_category_order, fit_text, save_figure,
 )
 
 
@@ -73,11 +73,10 @@ def figure_4_disease_heatmap(df: pd.DataFrame, output_dir: Path) -> None:
     start = 0
     for i, (host, ds) in enumerate(groups):
         end = start + len(ds) - 1
-        ax.add_patch(plt.Rectangle((start - 0.45, -1.35), end - start + 0.9, 0.6,
+        ax.add_patch(plt.Rectangle((start - 0.45, -1.45), end - start + 0.9, 0.8,
                                    color=HOST_COLORS[host], clip_on=False))
-        label = host.replace(' / ', '/\n') if len(ds) <= 2 else host
-        ax.text((start + end) / 2, -1.05, label, ha='center', va='center', fontsize=6.5,
-                fontweight='bold', color=TEXT_COLOR, linespacing=1.0, clip_on=False)
+        fit_text(ax, (start + end) / 2, -1.05, end - start + 0.8, 0.72, host,
+                 fontweight='bold', color=TEXT_COLOR, clip_on=False)
         if i:
             ax.axvline(start - 0.5, color='#777777', lw=0.8)
         start = end + 1
