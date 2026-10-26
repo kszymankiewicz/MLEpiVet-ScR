@@ -118,10 +118,10 @@ All figures use one fixed colour per algorithm category and per host group.
 
 If you use this code, please cite:
 
-Szymankiewicz, K. (2026). MLEpiVet-ScR: data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology (Version 2.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23040937
+Szymankiewicz, K. (2026). MLEpiVet-ScR: data processing and visualization pipeline for a scoping review of machine learning in notifiable animal disease epidemiology (Version 2.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.23661059
 
-The DOI above (concept DOI) always resolves to the latest version; the DOI of
-each specific version is listed on the Zenodo record. Version 1.0.0:
+To cite all versions, use the concept DOI, which always resolves to the latest
+version: https://doi.org/10.5281/zenodo.23040937. Version 1.0.0:
 https://doi.org/10.5281/zenodo.23040938
 
 Citation metadata are also provided in [CITATION.cff](CITATION.cff).
