@@ -14,7 +14,7 @@ authors:
     affiliation: "National Veterinary Research Institute (PIWet-PIB), Puławy, Poland"
     orcid: "https://orcid.org/0009-0008-9844-4019"
 version: 2.0.0
-date-released: "2026-10-20"
+date-released: "2026-10-26"
 license: MIT
 doi: 10.5281/zenodo.23040937
 repository-code: "https://github.com/kszymankiewicz/MLEpiVet-ScR"

@@ -4,7 +4,6 @@ Shared styling and ordering helpers for all figures.
 
 from pathlib import Path
 
-import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 

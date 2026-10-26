@@ -10,7 +10,6 @@ publication, which are the research gaps. Review articles are excluded.
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
 from src.plot_style import (

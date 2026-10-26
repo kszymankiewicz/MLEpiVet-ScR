@@ -147,13 +147,37 @@ def qa_report(df: pd.DataFrame) -> dict:
             'Flag'] = 'value > 1'
     sheets['Metrics'] = met
 
+    raw_t = df.loc[~df['is_review'], 'target_list'].explode().dropna()
+    tgt = raw_t.value_counts().rename('Publications').rename_axis('Raw target').reset_index()
+    tgt['Target group'] = tgt['Raw target'].map(TARGET_GROUPS)
+    sheets['Targets'] = tgt
+
+    dup_id = df[df['ID'].duplicated(keep=False)]
+    doi = df['DOI'].str.lower()
+    dup_doi = df[doi.notna() & doi.duplicated(keep=False)]
+    sheets['Duplicates'] = pd.concat([dup_id.assign(Issue='duplicate ID'),
+                                      dup_doi.assign(Issue='duplicate DOI')])[
+        ['ID', 'DOI', 'Title', 'Issue']]
+
     return sheets
 
 
 def print_qa_summary(sheets: dict) -> None:
     unmapped = sheets['F2 mapping']['Category (F1)'].isna().sum()
-    unknown_d = (sheets['Diseases']['Status'] == 'UNKNOWN').sum()
+    unknown_d = sheets['Diseases'].loc[sheets['Diseases']['Status'] == 'UNKNOWN', 'Raw disease']
+    unknown_t = sheets['Targets'].loc[sheets['Targets']['Target group'].isna(), 'Raw target']
     print(f"    F2 algorithms without F1 category: {unmapped}")
     print(f"    Publications where F1 and F2 disagree: {len(sheets['F1 vs F2'])}")
-    print(f"    Unknown disease labels: {unknown_d}")
+    print(f"    Unknown disease labels: {len(unknown_d)}")
     print(f"    Metric rows flagged: {(sheets['Metrics']['Flag'] != '').sum()}")
+    # Values not in the dictionaries are left out of the figures, so make
+    # them impossible to miss.
+    if len(unknown_d):
+        print('    WARNING - disease labels not in DISEASE_MAP or DISEASE_EXCLUDED '
+              f'(left out of disease figures): {list(unknown_d)}')
+    if len(unknown_t):
+        print('    WARNING - targets not in TARGET_GROUPS (left out of Figure 2C): '
+              f'{list(unknown_t)}')
+    if len(sheets['Duplicates']):
+        print('    WARNING - duplicate IDs/DOIs: '
+              f"{sheets['Duplicates'][['ID', 'Issue']].values.tolist()}")
